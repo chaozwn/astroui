@@ -348,6 +348,14 @@ function M.virtual_env(opts)
     virtual_env = { icon = { kind = "Environment", padding = { right = 1 } } },
     surround = { separator = "right", color = "virtual_env_bg", condition = condition.has_virtual_env },
     hl = hl.get_attributes "virtual_env",
+    on_click = {
+      name = "python env selector",
+      callback = function()
+        if is_available "venv-selector.nvim" then
+          vim.schedule(function() vim.cmd "VenvSelect" end)
+        end
+      end,
+    },
   }, opts)
   return M.builder(status_utils.setup_providers(opts, { "virtual_env" }))
 end
